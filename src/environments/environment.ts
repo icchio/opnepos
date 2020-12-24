@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig :{
+    apiKey: "AIzaSyDjD_7f6WQbtTvVxxNxOLZ255xX_C4A6Hw",
+    authDomain: "openpos-e5a41.firebaseapp.com",
+    databaseURL: "https://openpos-e5a41-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "openpos-e5a41",
+    storageBucket: "openpos-e5a41.appspot.com",
+    messagingSenderId: "287076226970",
+    appId: "1:287076226970:web:e0d5eb61ddeb6391f1cc23",
+    measurementId: "G-CCQDC11F9R"
+  }
 };
 
 /*

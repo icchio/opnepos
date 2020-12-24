@@ -1,0 +1,19 @@
+:host{
+    height: 100%;
+}
+.display{
+    height: 80px;
+     width: 100%; 
+     border:1px solid #636363;
+     background-color: #fff;
+     font-size:70px;
+     text-align: right;
+     line-height: 80px;
+     padding-right: 10px;
+}
+.calcBtn{
+    height: 100%; 
+    font-size: 30px;
+    border:1px solid #646464;
+    cursor: pointer;
+}

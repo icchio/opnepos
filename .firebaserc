@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "openpos-e5a41"
+  },
+  "targets": {
+    "openpos-e5a41": {
+      "hosting": {
+        "openpos": [
+          "openpos-e5a41"
+        ]
+      }
+    }
   }
 }
