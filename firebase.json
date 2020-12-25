@@ -4,6 +4,7 @@
   },
   "hosting": [
     {
+      "target": "openpos", 
       "public": "y",
       "ignore": [
         "firebase.json",
