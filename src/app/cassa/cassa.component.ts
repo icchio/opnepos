@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
+export interface billObj{
+  tag : string,
+  importo: number
+}
+
 @Component({
   selector: 'app-cassa',
   templateUrl: './cassa.component.html',
@@ -13,7 +18,7 @@ export class CassaComponent implements OnInit {
   calcVal = 0.00;
   
   unitCount = 0;
-  subject: BehaviorSubject<any[]> = new BehaviorSubject<any>([]);
+  subject: BehaviorSubject<billObj[]> = new BehaviorSubject<any>([]);
   importi : Observable<any> =  this.subject.asObservable();
 
   falgmulti = false;
@@ -23,9 +28,8 @@ export class CassaComponent implements OnInit {
     this.importi.subscribe(k => 
      {
        this.calcVal = 0;
-       console.log(k)
-       k.forEach(num => {
-         this.calcVal = this.calcVal + num;
+       k.forEach((obj : billObj) => {
+         this.calcVal = this.calcVal + obj.importo;
        });
      })
   }
@@ -95,14 +99,20 @@ export class CassaComponent implements OnInit {
     //this.calcVal=  Number(this.displayText.replace(',','.'))
   }
 
-  sum(){
+  sum(tag){
     if(this.falgmulti==true){
-      this.addToSumArray(Number(this.displayText)*this.valmulti)
+      this.addToSumArray(Number(this.displayText)*this.valmulti,tag)
       this.falgmulti = false;
       this,this.valmulti =0;
     } else {
-      this.addToSumArray(Number(this.displayText.replace(',','.')))
+      this.addToSumArray(Number(this.displayText.replace(',','.')),tag)
     }
+    this.displayText = "0,00";
+    this.unitCount=0;
+  }
+
+  sumPreset(importo, tag){
+    this.addToSumArray(importo,tag)
     this.displayText = "0,00";
     this.unitCount=0;
   }
@@ -128,13 +138,26 @@ export class CassaComponent implements OnInit {
   }
 
 
-  addToSumArray(toadd){
+  addToSumArray(toadd,tag?){
+    if(tag == null){
+      tag = '';
+    }
+
     this.importi.pipe(take(1)).subscribe(val => {
-      console.log(val)
-      const newArr = [...val, toadd];
+      var obj: billObj = {importo: toadd, tag: tag}
+      const newArr = [...val, obj];
       this.subject.next(newArr);
     })
   }
 
+  remove(item:billObj){
+    this.importi.pipe(take(1)).subscribe(val => {
+      let thisarray = val.filter( k => { 
+        return  k != item
+      });
+      const newArr = [...thisarray];
+      this.subject.next(newArr);
+    })
+  }
 
 }

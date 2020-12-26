@@ -11,11 +11,13 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { CassaComponent } from './cassa/cassa.component';
+import { UtentiComponent } from './utenti/utenti.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CassaComponent
+    CassaComponent,
+    UtentiComponent
   ],
   imports: [
     BrowserModule,
