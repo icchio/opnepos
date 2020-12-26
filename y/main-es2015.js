@@ -45,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div fxLayout=\"row\" style=\"width: 100%; height: 100%; background-color:#f5f5f5; padding:20px;\">\n    <div fxLayout=\"column\" fxFlex=\"40\" fxLayoutGap=\"10px\">\n        <div class=\"display\">\n            {{displayText}}\n        </div>\n        <div style=\"height: 80px; width: 100%; margin-top: 30px;\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(7)\"  fxLayoutAlign=\"center center\">7</div>\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(8)\" fxLayoutAlign=\"center center\">8</div>\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(9)\" fxLayoutAlign=\"center center\">9</div>\n        </div>\n        <div style=\"height: 80px; width: 100%;\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(4)\" fxLayoutAlign=\"center center\">4</div>\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(5)\" fxLayoutAlign=\"center center\">5</div>\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(6)\" fxLayoutAlign=\"center center\">6</div>\n        </div>\n        <div style=\"height: 80px; width: 100%;\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(1)\" fxLayoutAlign=\"center center\">1</div>\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(2)\" fxLayoutAlign=\"center center\">2</div>\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(3)\" fxLayoutAlign=\"center center\">3</div>\n        </div>\n        <div style=\"height: 80px; width: 100%;\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"66\" class=\"calcBtn\" (click)=\"clickNum(0)\" fxLayoutAlign=\"center center\">0</div>\n        </div>\n    </div>\n    <div fxLayout=\"column\" fxFlex=\"5\" >\n        <div style=\"height: 82px; width: 100%;\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"200\" class=\"calcBtn\" (click)=\"canc()\" style=\"border-left: 0px;\" fxLayoutAlign=\"center center\">x</div>\n        </div>  \n    </div>\n    <div fxLayout=\"column\">\n    </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div fxLayout=\"row\" style=\"width: 100%; height: 40px; background-color:#afafaf; padding:10px;\">\n</div>\n<div fxLayout=\"row\" style=\"width: 100%; height: calc(100% - 40px); background-color:#f5f5f5; padding:10px;\" fxLayoutGap=\"10px\">\n    <div fxLayout=\"column\" fxFlex=\"40\" fxLayoutGap=\"10px\">\n        <div class=\"display\">\n            {{displayText}}\n        </div>\n        <div style=\"height: 80px; width: 100%; margin-top: 30px;\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(7)\"  fxLayoutAlign=\"center center\">7</div>\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(8)\" fxLayoutAlign=\"center center\">8</div>\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(9)\" fxLayoutAlign=\"center center\">9</div>\n        </div>\n        <div style=\"height: 80px; width: 100%;\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(4)\" fxLayoutAlign=\"center center\">4</div>\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(5)\" fxLayoutAlign=\"center center\">5</div>\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(6)\" fxLayoutAlign=\"center center\">6</div>\n        </div>\n        <div style=\"height: 80px; width: 100%;\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(1)\" fxLayoutAlign=\"center center\">1</div>\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(2)\" fxLayoutAlign=\"center center\">2</div>\n            <div fxFlex=\"33\" class=\"calcBtn\" (click)=\"clickNum(3)\" fxLayoutAlign=\"center center\">3</div>\n        </div>\n        <div style=\"height: 80px; width: 100%;\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"66\" class=\"calcBtn\" (click)=\"clickNum(0)\" fxLayoutAlign=\"center center\">0</div>\n        </div>\n        <div style=\"height: 80px; width: 100%; margin-top: 30px;\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"100\" class=\"calcBtn\" (click)=\"addebita(7)\"  fxLayoutAlign=\"center center\">Addebita</div>\n        </div>\n    </div>\n    <div fxLayout=\"column\" fxFlex=\"7\" fxLayoutGap=\"10px\">\n        <div style=\"height: 82px; width: 100%;\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"200\" class=\"calcBtn\" (click)=\"canc()\" fxLayoutAlign=\"center center\">C</div>\n        </div> \n        <div style=\"width: 100%; height: 170px;\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"200\" class=\"calcBtn\" (click)=\"sub()\" fxLayoutAlign=\"center center\">-</div>\n        </div> \n        <div style=\"width: 100%;height: 170px\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"200\" class=\"calcBtn\" (click)=\"sum()\" fxLayoutAlign=\"center center\">+</div>\n        </div>  \n        <div style=\"height: 82px; width: 100%;\" fxLayout=\"row\" fxLayoutGap=\"10px\">\n            <div fxFlex=\"200\" class=\"calcBtn\" (click)=\"multi()\" fxLayoutAlign=\"center center\">X</div>\n        </div>  \n    </div>\n    \n    <div fxLayout=\"column\">\n        <p>{{calcVal}}</p>\n        <ul>\n            <li *ngFor=\"let item of importi | async\">{{item}}</li>\n        </ul>\n    </div> \n</div>\n");
 
 /***/ }),
 
@@ -484,7 +484,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (":host {\n  height: 100%;\n}\n\n.display {\n  height: 80px;\n  width: 100%;\n  border: 1px solid #636363;\n  background-color: #fff;\n  font-size: 70px;\n  text-align: right;\n  line-height: 80px;\n  padding-right: 10px;\n}\n\n.calcBtn {\n  height: 100%;\n  font-size: 30px;\n  border: 1px solid #646464;\n  cursor: pointer;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9pY2NoaW8vRGVza3RvcC9vcGVucG9zL29wZW5wb3Mvc3JjL2FwcC9jYXNzYS9jYXNzYS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY2Fzc2EvY2Fzc2EuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFBO0FDQ0o7O0FEQ0E7RUFDSSxZQUFBO0VBQ0MsV0FBQTtFQUNBLHlCQUFBO0VBQ0Esc0JBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtFQUNBLG1CQUFBO0FDRUw7O0FEQUE7RUFDSSxZQUFBO0VBQ0EsZUFBQTtFQUNBLHlCQUFBO0VBQ0EsZUFBQTtBQ0dKIiwiZmlsZSI6InNyYy9hcHAvY2Fzc2EvY2Fzc2EuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdHtcbiAgICBoZWlnaHQ6IDEwMCU7XG59XG4uZGlzcGxheXtcbiAgICBoZWlnaHQ6IDgwcHg7XG4gICAgIHdpZHRoOiAxMDAlOyBcbiAgICAgYm9yZGVyOjFweCBzb2xpZCAjNjM2MzYzO1xuICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmO1xuICAgICBmb250LXNpemU6NzBweDtcbiAgICAgdGV4dC1hbGlnbjogcmlnaHQ7XG4gICAgIGxpbmUtaGVpZ2h0OiA4MHB4O1xuICAgICBwYWRkaW5nLXJpZ2h0OiAxMHB4O1xufVxuLmNhbGNCdG57XG4gICAgaGVpZ2h0OiAxMDAlOyBcbiAgICBmb250LXNpemU6IDMwcHg7XG4gICAgYm9yZGVyOjFweCBzb2xpZCAjNjQ2NDY0O1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn0iLCI6aG9zdCB7XG4gIGhlaWdodDogMTAwJTtcbn1cblxuLmRpc3BsYXkge1xuICBoZWlnaHQ6IDgwcHg7XG4gIHdpZHRoOiAxMDAlO1xuICBib3JkZXI6IDFweCBzb2xpZCAjNjM2MzYzO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmO1xuICBmb250LXNpemU6IDcwcHg7XG4gIHRleHQtYWxpZ246IHJpZ2h0O1xuICBsaW5lLWhlaWdodDogODBweDtcbiAgcGFkZGluZy1yaWdodDogMTBweDtcbn1cblxuLmNhbGNCdG4ge1xuICBoZWlnaHQ6IDEwMCU7XG4gIGZvbnQtc2l6ZTogMzBweDtcbiAgYm9yZGVyOiAxcHggc29saWQgIzY0NjQ2NDtcbiAgY3Vyc29yOiBwb2ludGVyO1xufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (":host {\n  height: 100%;\n}\n\n.display {\n  height: 80px;\n  width: 100%;\n  border: 1px solid #636363;\n  background-color: #fff;\n  font-size: 70px;\n  text-align: right;\n  line-height: 80px;\n}\n\n.calcBtn {\n  height: 100%;\n  font-size: 30px;\n  border: 1px solid #646464;\n  cursor: pointer;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9pY2NoaW8vRGVza3RvcC9vcGVucG9zL29wZW5wb3Mvc3JjL2FwcC9jYXNzYS9jYXNzYS5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY2Fzc2EvY2Fzc2EuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFBO0FDQ0o7O0FEQ0E7RUFDSSxZQUFBO0VBQ0MsV0FBQTtFQUNBLHlCQUFBO0VBQ0Esc0JBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0VMOztBREFBO0VBQ0ksWUFBQTtFQUNBLGVBQUE7RUFDQSx5QkFBQTtFQUNBLGVBQUE7QUNHSiIsImZpbGUiOiJzcmMvYXBwL2Nhc3NhL2Nhc3NhLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3R7XG4gICAgaGVpZ2h0OiAxMDAlO1xufVxuLmRpc3BsYXl7XG4gICAgaGVpZ2h0OiA4MHB4O1xuICAgICB3aWR0aDogMTAwJTsgXG4gICAgIGJvcmRlcjoxcHggc29saWQgIzYzNjM2MztcbiAgICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcbiAgICAgZm9udC1zaXplOjcwcHg7XG4gICAgIHRleHQtYWxpZ246IHJpZ2h0O1xuICAgICBsaW5lLWhlaWdodDogODBweDtcbn1cbi5jYWxjQnRue1xuICAgIGhlaWdodDogMTAwJTsgXG4gICAgZm9udC1zaXplOiAzMHB4O1xuICAgIGJvcmRlcjoxcHggc29saWQgIzY0NjQ2NDtcbiAgICBjdXJzb3I6IHBvaW50ZXI7XG59IiwiOmhvc3Qge1xuICBoZWlnaHQ6IDEwMCU7XG59XG5cbi5kaXNwbGF5IHtcbiAgaGVpZ2h0OiA4MHB4O1xuICB3aWR0aDogMTAwJTtcbiAgYm9yZGVyOiAxcHggc29saWQgIzYzNjM2MztcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcbiAgZm9udC1zaXplOiA3MHB4O1xuICB0ZXh0LWFsaWduOiByaWdodDtcbiAgbGluZS1oZWlnaHQ6IDgwcHg7XG59XG5cbi5jYWxjQnRuIHtcbiAgaGVpZ2h0OiAxMDAlO1xuICBmb250LXNpemU6IDMwcHg7XG4gIGJvcmRlcjogMXB4IHNvbGlkICM2NDY0NjQ7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn0iXX0= */");
 
 /***/ }),
 
@@ -500,6 +500,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CassaComponent", function() { return CassaComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+
+
 
 
 let CassaComponent = class CassaComponent {
@@ -507,10 +511,31 @@ let CassaComponent = class CassaComponent {
         this.displayText = '0,00';
         this.calcVal = 0.00;
         this.unitCount = 0;
+        this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        this.importi = this.subject.asObservable();
+        this.falgmulti = false;
+        this.valmulti = 0;
+        this.importi.subscribe(k => {
+            this.calcVal = 0;
+            console.log(k);
+            k.forEach(num => {
+                this.calcVal = this.calcVal + num;
+            });
+        });
     }
     ngOnInit() {
     }
     clickNum(n) {
+        if (this.falgmulti == true) {
+            if (this.unitCount == 0) {
+                this.displayText = n;
+            }
+            else {
+                this.displayText = this.displayText.toString() + n;
+            }
+            this.unitCount = this.unitCount + 1;
+            return;
+        }
         this.displayText = this.displayText.replace(',', '');
         if (this.unitCount == 0) {
             this.displayText = '00' + n;
@@ -526,10 +551,20 @@ let CassaComponent = class CassaComponent {
         }
         this.unitCount = this.unitCount + 1;
         this.displayText = this.displayText.substring(0, this.displayText.length - 2) + ',' + this.displayText.substring(this.displayText.length - 2, this.displayText.length);
-        this.calcVal = Number(this.displayText.replace(',', '.'));
+        //this.calcVal=  Number(this.displayText.replace(',','.'))
     }
     canc() {
         if (this.unitCount <= 0) {
+            return;
+        }
+        if (this.falgmulti == true) {
+            if (this.unitCount == 1) {
+                this.displayText = '0';
+                this.unitCount = this.unitCount - 1;
+                return;
+            }
+            this.displayText = this.displayText.substring(0, this.displayText.length - 1);
+            this.unitCount = this.unitCount - 1;
             return;
         }
         this.displayText = this.displayText.replace(',', '');
@@ -547,7 +582,44 @@ let CassaComponent = class CassaComponent {
             this.displayText = this.displayText.substring(0, this.displayText.length - 1);
         }
         this.displayText = this.displayText.substring(0, this.displayText.length - 2) + ',' + this.displayText.substring(this.displayText.length - 2, this.displayText.length);
-        this.calcVal = Number(this.displayText.replace(',', '.'));
+        //this.calcVal=  Number(this.displayText.replace(',','.'))
+    }
+    sum() {
+        if (this.falgmulti == true) {
+            this.addToSumArray(Number(this.displayText) * this.valmulti);
+            this.falgmulti = false;
+            this, this.valmulti = 0;
+        }
+        else {
+            this.addToSumArray(Number(this.displayText.replace(',', '.')));
+        }
+        this.displayText = "0,00";
+        this.unitCount = 0;
+    }
+    sub() {
+        if (this.falgmulti == true) {
+            this.addToSumArray(Number(this.displayText) * this.valmulti * -1);
+            this.falgmulti = false;
+            this, this.valmulti = 0;
+        }
+        else {
+            this.addToSumArray(-1 * Number(this.displayText.replace(',', '.')));
+        }
+        this.displayText = "0,00";
+        this.unitCount = 0;
+    }
+    multi() {
+        this.falgmulti = true;
+        this.valmulti = Number(this.displayText.replace(',', '.'));
+        this.displayText = "0";
+        this.unitCount = 0;
+    }
+    addToSumArray(toadd) {
+        this.importi.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe(val => {
+            console.log(val);
+            const newArr = [...val, toadd];
+            this.subject.next(newArr);
+        });
     }
 };
 CassaComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

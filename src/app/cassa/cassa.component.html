@@ -1,4 +1,6 @@
-<div fxLayout="row" style="width: 100%; height: 100%; background-color:#f5f5f5; padding:20px;">
+<div fxLayout="row" style="width: 100%; height: 40px; background-color:#afafaf; padding:10px;">
+</div>
+<div fxLayout="row" style="width: 100%; height: calc(100% - 40px); background-color:#f5f5f5; padding:10px;" fxLayoutGap="10px">
     <div fxLayout="column" fxFlex="40" fxLayoutGap="10px">
         <div class="display">
             {{displayText}}
@@ -21,12 +23,29 @@
         <div style="height: 80px; width: 100%;" fxLayout="row" fxLayoutGap="10px">
             <div fxFlex="66" class="calcBtn" (click)="clickNum(0)" fxLayoutAlign="center center">0</div>
         </div>
+        <div style="height: 80px; width: 100%; margin-top: 30px;" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="100" class="calcBtn" (click)="addebita(7)"  fxLayoutAlign="center center">Addebita</div>
+        </div>
     </div>
-    <div fxLayout="column" fxFlex="5" >
+    <div fxLayout="column" fxFlex="7" fxLayoutGap="10px">
         <div style="height: 82px; width: 100%;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="canc()" style="border-left: 0px;" fxLayoutAlign="center center">x</div>
+            <div fxFlex="200" class="calcBtn" (click)="canc()" fxLayoutAlign="center center">C</div>
+        </div> 
+        <div style="width: 100%; height: 170px;" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="200" class="calcBtn" (click)="sub()" fxLayoutAlign="center center">-</div>
+        </div> 
+        <div style="width: 100%;height: 170px" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="200" class="calcBtn" (click)="sum()" fxLayoutAlign="center center">+</div>
+        </div>  
+        <div style="height: 82px; width: 100%;" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="200" class="calcBtn" (click)="multi()" fxLayoutAlign="center center">X</div>
         </div>  
     </div>
+    
     <div fxLayout="column">
-    </div>
+        <p>{{calcVal}}</p>
+        <ul>
+            <li *ngFor="let item of importi | async">{{item}}</li>
+        </ul>
+    </div> 
 </div>
