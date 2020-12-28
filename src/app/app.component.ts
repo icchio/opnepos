@@ -14,17 +14,17 @@ export class AppComponent {
   telSrc ='';
 
   constructor(public firestore : AngularFirestore){
-    this.items = firestore.collection('user').snapshotChanges().pipe( map(actions => actions.map(a => {
-      const data = a.payload.doc.data() as any;
-      const id = a.payload.doc.id;
-      return { id, ...data };
-    })))
+    // this.items = firestore.collection('user').snapshotChanges().pipe( map(actions => actions.map(a => {
+    //   const data = a.payload.doc.data() as any;
+    //   const id = a.payload.doc.id;
+    //   return { id, ...data };
+    // })))
   
-    this.firestore.collection('user').get().subscribe( p => {
-      p.docs.forEach(k => {
-        console.log(k.id)
-      })
-    })
+    // this.firestore.collection('user').get().subscribe( p => {
+    //   p.docs.forEach(k => {
+    //     console.log(k.id)
+    //   })
+    // })
   }
 
   addItem() {
