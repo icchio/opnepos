@@ -116,7 +116,6 @@ export class UtentiComponent implements OnInit {
   // }
 
   aggiungiCard(us: firebaseUser) {
-    firebase.firestore().enablePersistence();
 
     us.Carte.push({ IdCard: this.cardNumber, Movimenti: [] });
     this.firestore.collection('user').doc(us.id).update({Carte : us.Carte});
