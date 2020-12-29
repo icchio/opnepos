@@ -115,14 +115,15 @@ export class UtentiComponent implements OnInit {
     this.firestore.collection('user').doc(id).update({ Carte: firebase.firestore.FieldValue.arrayUnion(nuovaCard) });
   }
 
-  aggiungiCardTest(id: string) {
-    let item: user;
-    this.firestore.collection('user').doc(id).get().subscribe(r => {
-      item = r.data() as user
-      item.Carte.push({IdCard: this.cardNumber, Movimenti: [] })
-      //this.firestore.collection('user').doc(id).set(item);
-      this.firestore.collection('user').doc(id).update({Carte : item.Carte})
-    })
+  aggiungiCardTest(us: firebaseUser) {
+    us.Carte.push({IdCard: this.cardNumber, Movimenti: [] })
+    this.firestore.collection('user').doc(us.id).update({Carte : us.Carte})
+    // this.firestore.collection('user').doc(id).get().subscribe(r => {
+    //   item = r.data() as user
+    //   item.Carte.push({IdCard: this.cardNumber, Movimenti: [] })
+    //   //this.firestore.collection('user').doc(id).set(item);
+    //   this.firestore.collection('user').doc(id).update({Carte : item.Carte})
+    // })
     
     // const nuovaCard = {
     // this.firestore.collection('user').doc(id).get().subscribe(r => r.data()

@@ -22,9 +22,14 @@
             <div mat-line> {{utente.Telefono}} </div>
             <div mat-line>
               <input type="text" [(ngModel)]="cardNumber" placeholder="inserisci numero carta">
-              <button mat-icon-button (click)="aggiungiCard(utente.id)">
+              <button mat-icon-button (click)="aggiungiCard(utente)">
                 <mat-icon>add</mat-icon>
              </button>
+            </div>
+            <div mat-line>
+             <ul>
+                 <li *ngFor="let c of utente.Carte">{{c | json}}</li>
+             </ul>
             </div>
             <button mat-icon-button (click)="elimina(utente.id)">
                 <mat-icon>delete_forever</mat-icon>
