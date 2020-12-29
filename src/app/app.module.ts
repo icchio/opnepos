@@ -14,6 +14,10 @@ import { CassaComponent } from './cassa/cassa.component';
 import { UtentiComponent } from './utenti/utenti.component';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {CustomMaterialModule} from './mat-module/mat-module.module';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +33,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     FlexLayoutModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    BrowserAnimationsModule,
+    CustomMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
