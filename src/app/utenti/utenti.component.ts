@@ -120,7 +120,8 @@ export class UtentiComponent implements OnInit {
     this.firestore.collection('user').doc(id).get().subscribe(r => {
       item = r.data() as user
       item.Carte.push({IdCard: this.cardNumber, Movimenti: [] })
-      this.firestore.collection('user').doc(id).set(item);
+      //this.firestore.collection('user').doc(id).set(item);
+      this.firestore.collection('user').doc(id).update({Carte : item.Carte})
     })
     
     // const nuovaCard = {
