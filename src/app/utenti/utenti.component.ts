@@ -92,8 +92,9 @@ export class UtentiComponent implements OnInit {
     // })))
   }
 
-  getDettaglio(id: string) {
-    this.firestore.collection('user').doc(id).valueChanges().subscribe((r:user) =>{console.log(r)})
+  getDettaglioTest(id: string) {
+    //this.firestore.collection('user').doc(id).valueChanges().subscribe((r:user) =>{console.log(r)})
+    this.firestore.collection('user').doc(id).get().subscribe(r => {console.log(r.data())})
   }
 
   clearNewUser(){
@@ -112,6 +113,20 @@ export class UtentiComponent implements OnInit {
   aggiungiCard(id: string) {
     const nuovaCard = { IdCard: this.cardNumber, Movimenti: [] };
     this.firestore.collection('user').doc(id).update({ Carte: firebase.firestore.FieldValue.arrayUnion(nuovaCard) });
+  aggiungiCardTest(id: string) {
+    let item: user;
+    this.firestore.collection('user').doc(id).get().subscribe(r => {
+      item = r.data() as user
+      item.Carte.push({IdCard: this.cardNumber, Movimenti: [] })
+      this.firestore.collection('user').doc(id).set(item);
+    })
+    
+    // const nuovaCard = {
+    // this.firestore.collection('user').doc(id).get().subscribe(r => r.data()
+    // this.firestore.collection('user').doc(id).set((r:user) => {
+    //   r.Carte.push(nuovaCard)
+    //   return r
+    // }).then(() => console.log('Nuova card salvata'));
   }
 
   elimina(id){
