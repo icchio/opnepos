@@ -6,6 +6,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Action } from 'rxjs/internal/scheduler/Action';
+import * as firebase from 'firebase';
 
 
 
@@ -110,7 +111,7 @@ export class UtentiComponent implements OnInit {
 
   aggiungiCard(id: string) {
     const nuovaCard = { IdCard: this.cardNumber, Movimenti: [] };
-    this.firestore.collection('user').doc(id).update((r:user) => r.Carte.push(nuovaCard)).then(v => console.log('Nuova card salvata', v));
+    this.firestore.collection('user').doc(id).update({ Carte: firebase.firestore.FieldValue.arrayUnion(nuovaCard) });
   }
 
   elimina(id){
