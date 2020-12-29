@@ -1,3 +1,4 @@
+import { card } from './../interfaces';
 import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { user } from '../interfaces'
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
@@ -27,7 +28,7 @@ export class UtentiComponent implements OnInit {
   srcCognome:string;
   srcTelefono:string;
   srcNumeroCarta:string;
-
+  cardNumber: string;
 
 
   srcObj: user;
@@ -105,6 +106,11 @@ export class UtentiComponent implements OnInit {
 
   aggiungi(){
     this.firestore.collection('user').add(this.nuovoUser);
+  }
+
+  aggiungiCard(id: string) {
+    const nuovaCard = { IdCard: this.cardNumber, Movimenti: [] };
+    this.firestore.collection('user').doc(id).update((r:user) => r.Carte.push(nuovaCard)).then(v => console.log('Nuova card salvata', v));
   }
 
   elimina(id){
