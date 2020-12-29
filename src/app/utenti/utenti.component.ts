@@ -3,7 +3,7 @@ import { user } from '../interfaces'
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http'; 
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -32,8 +32,8 @@ export class UtentiComponent implements OnInit {
   srcObj: user;
   rowcount = 0;
   constructor(
-    public firestore : AngularFirestore, 
-    public http: HttpClient) { 
+    public firestore : AngularFirestore,
+    public http: HttpClient) {
   }
 
   ngOnInit() {
@@ -52,7 +52,7 @@ export class UtentiComponent implements OnInit {
 
     this.clearNewUser()
   }
-  
+
   keysrcuser(ev){
     console.log(ev)
   }
@@ -74,11 +74,11 @@ export class UtentiComponent implements OnInit {
         return { id, ...data };
       })))
     }
-    
 
-    
+
+
     // this.utenti=this.firestore.collection(
-    //     'user', 
+    //     'user',
     //     q => q
     //     .where('Telefono','>=',this.srcObj.Telefono)
     //     .where('Telefono', '<', this.srcObj.Telefono + 'z')
@@ -89,6 +89,9 @@ export class UtentiComponent implements OnInit {
     // })))
   }
 
+  getDettaglio(id: string) {
+    this.firestore.collection('user').doc(id).get().subscribe((r:user) => console.log(r));
+  }
 
   clearNewUser(){
     this.nuovoUser = {
@@ -124,9 +127,9 @@ export class UtentiComponent implements OnInit {
   }
 
   setCercaCard(){
-    setTimeout(()=>{ 
+    setTimeout(()=>{
       // this will make the execution after the above boolean has changed
-      document.getElementById('inputCard').focus(); 
+      document.getElementById('inputCard').focus();
     },0);
   }
 

@@ -1,5 +1,5 @@
-<div fxLayout="column" 
-    style="width: 100%; height: 100%; background-color:#f5f5f5; padding:10px;" 
+<div fxLayout="column"
+    style="width: 100%; height: 100%; background-color:#f5f5f5; padding:10px;"
     fxLayoutGap="10px">
     <mat-toolbar color="primary">
         <span>Persone</span>
@@ -14,9 +14,9 @@
                 <button mat-button (click)="setCercaCard()" >Cerca Card</button>
             </div>
         </div>
-    </mat-toolbar>  
+    </mat-toolbar>
     <mat-list>
-        <mat-list-item *ngFor="let utente of utenti | async | filter:srcObj.Nome ; let i = index">
+        <mat-list-item *ngFor="let utente of utenti | async | filter:srcObj.Nome ; let i = index" (click)="getDettaglio(utente.id)">
             <!-- <mat-icon mat-list-icon>folder</mat-icon> -->
             <div mat-line> {{utente.Nome}} {{utente.Cognome}}</div>
             <div mat-line> {{utente.Telefono}} </div>
