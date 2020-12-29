@@ -92,7 +92,7 @@ export class UtentiComponent implements OnInit {
     // })))
   }
 
-  getDettaglioTest(id: string) {
+  getDettaglio(id: string) {
     //this.firestore.collection('user').doc(id).valueChanges().subscribe((r:user) =>{console.log(r)})
     this.firestore.collection('user').doc(id).get().subscribe(r => {console.log(r.data())})
   }
@@ -113,6 +113,8 @@ export class UtentiComponent implements OnInit {
   aggiungiCard(id: string) {
     const nuovaCard = { IdCard: this.cardNumber, Movimenti: [] };
     this.firestore.collection('user').doc(id).update({ Carte: firebase.firestore.FieldValue.arrayUnion(nuovaCard) });
+  }
+
   aggiungiCardTest(id: string) {
     let item: user;
     this.firestore.collection('user').doc(id).get().subscribe(r => {
