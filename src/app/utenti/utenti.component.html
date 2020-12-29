@@ -1,24 +1,36 @@
 <div fxLayout="column" 
     style="width: 100%; height: 100%; background-color:#f5f5f5; padding:10px;" 
     fxLayoutGap="10px">
-    <div class="utenti" fxLayoutAlign="start center" fxLayout="row" fxLayoutGap="10px">
-     <div>Ricerca<input [(ngModel)]="srcObj.Nome" type="text"></div>
-     <!-- <div>Cognome<input [(ngModel)]="srcObj.Cognome" type="text"></div>
-     <div>Telefono<input [(ngModel)]="srcObj.Telefono" type="text"></div> -->
-     <div><input  style="width: 0px;padding: 0px;border: 0px;" (keyup.enter)="cercaUtente(srcNumeroCarta)" id="inputCard" [(ngModel)]="srcNumeroCarta" type="text"></div>
-     <div>
-         <button type="button" (click)="setCercaCard()" >Cerca Card</button>
-    </div>
-    </div>
-    <div class="utenti" *ngFor="let utente of utenti | async | filter:srcObj.Nome ; let i = index" fxLayout="row">
-        {{utente.Nome}} {{utente.Cognome}} {{utente.Telefono}}
-        <div><button type="button" (click)="elimina(utente.id)">Elimina</button></div>
-    </div>
+    <mat-toolbar color="primary">
+        <span>Persone</span>
+
+        <div class="utenti" fxLayoutAlign="start center" fxLayout="row" fxLayoutGap="10px">
+            <mat-form-field floatLabel='never'>
+                <mat-label>Ricerca</mat-label>
+                <input matInput placeholder="Ex. Pizza" [(ngModel)]="srcObj.Nome">
+            </mat-form-field>
+            <div><input  style="width: 0px;padding: 0px;border: 0px;" (keyup.enter)="cercaUtente(srcNumeroCarta)" id="inputCard" [(ngModel)]="srcNumeroCarta" type="text"></div>
+            <div>
+                <button mat-button (click)="setCercaCard()" >Cerca Card</button>
+            </div>
+        </div>
+    </mat-toolbar>  
+    <mat-list>
+        <mat-list-item *ngFor="let utente of utenti | async | filter:srcObj.Nome ; let i = index">
+            <!-- <mat-icon mat-list-icon>folder</mat-icon> -->
+            <div mat-line> {{utente.Nome}} {{utente.Cognome}}</div>
+            <div mat-line> {{utente.Telefono}} </div>
+            <button mat-icon-button (click)="elimina(utente.id)">
+                <mat-icon>delete_forever</mat-icon>
+             </button>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+    </mat-list>
     <div class="utenti" fxLayout="row">
         <div>Nome<input [(ngModel)]="nuovoUser.Nome" type="text"></div>
         <div>Cognome<input [(ngModel)]="nuovoUser.Cognome" type="text"></div>
         <div>Telefono<input [(ngModel)]="nuovoUser.Telefono"type="text"></div>
-        <div><button type="button" (click)="aggiungi()">Aggiungi</button></div>
+        <div><button mat-button (click)="aggiungi()">Aggiungi</button></div>
     </div>
     <div><button type="button" (click)="caricaUtenitDummy()">DummyLoad</button></div>
 </div>
