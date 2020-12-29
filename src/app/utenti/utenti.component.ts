@@ -1,4 +1,4 @@
-import { card } from './../interfaces';
+import { card, movimentiCard } from './../interfaces';
 import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { user } from '../interfaces'
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
@@ -11,7 +11,7 @@ import * as firebase from 'firebase';
 
 
 export interface firebaseUser extends user {
-  readonly id;
+  readonly id: string;
 }
 @Component({
   selector: 'app-utenti',
@@ -110,27 +110,14 @@ export class UtentiComponent implements OnInit {
     this.firestore.collection('user').add(this.nuovoUser);
   }
 
-  aggiungiCard(id: string) {
-    const nuovaCard = { IdCard: this.cardNumber, Movimenti: [] };
-    this.firestore.collection('user').doc(id).update({ Carte: firebase.firestore.FieldValue.arrayUnion(nuovaCard) });
-  }
+  // aggiungiCard(id: string) {
+  //   const nuovaCard = { IdCard: this.cardNumber, Movimenti: [] };
+  //   this.firestore.collection('user').doc(id).update({ Carte: firebase.firestore.FieldValue.arrayUnion(nuovaCard) });
+  // }
 
-  aggiungiCardTest(us: firebaseUser) {
-    us.Carte.push({IdCard: this.cardNumber, Movimenti: [] })
-    this.firestore.collection('user').doc(us.id).update({Carte : us.Carte})
-    // this.firestore.collection('user').doc(id).get().subscribe(r => {
-    //   item = r.data() as user
-    //   item.Carte.push({IdCard: this.cardNumber, Movimenti: [] })
-    //   //this.firestore.collection('user').doc(id).set(item);
-    //   this.firestore.collection('user').doc(id).update({Carte : item.Carte})
-    // })
-    
-    // const nuovaCard = {
-    // this.firestore.collection('user').doc(id).get().subscribe(r => r.data()
-    // this.firestore.collection('user').doc(id).set((r:user) => {
-    //   r.Carte.push(nuovaCard)
-    //   return r
-    // }).then(() => console.log('Nuova card salvata'));
+  aggiungiCard(us: firebaseUser) {
+    us.Carte.push({ IdCard: this.cardNumber, Movimenti: [] });
+    this.firestore.collection('user').doc(us.id).update({Carte : us.Carte});
   }
 
   elimina(id){
