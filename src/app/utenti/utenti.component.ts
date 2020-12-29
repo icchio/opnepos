@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 
 
@@ -90,7 +91,7 @@ export class UtentiComponent implements OnInit {
   }
 
   getDettaglio(id: string) {
-    this.firestore.collection('user').doc(id).get().subscribe((r:user) => console.log(r));
+    this.firestore.collection('user').doc(id).valueChanges().subscribe((r:user) =>{console.log(r)})
   }
 
   clearNewUser(){
