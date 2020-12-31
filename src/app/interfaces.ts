@@ -1,3 +1,9 @@
+export interface listino{
+    tag : string,
+    importo: number,
+    descrizione: string
+  }
+
 export interface user {
     Nome:string;
     Cognome:string;
