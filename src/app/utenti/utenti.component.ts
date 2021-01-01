@@ -1,5 +1,5 @@
 import { card, movimentiCard } from './../interfaces';
-import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList, Inject } from '@angular/core';
 import { user } from '../interfaces'
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -7,6 +7,7 @@ import { map, take } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import * as firebase from 'firebase';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 
@@ -36,7 +37,8 @@ export class UtentiComponent implements OnInit {
   rowcount = 0;
   constructor(
     public firestore : AngularFirestore,
-    public http: HttpClient) {
+    public http: HttpClient,
+    public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -115,10 +117,22 @@ export class UtentiComponent implements OnInit {
   //   this.firestore.collection('user').doc(id).update({ Carte: firebase.firestore.FieldValue.arrayUnion(nuovaCard) });
   // }
 
-  aggiungiCard(us: firebaseUser) {
 
-    us.Carte.push({ IdCard: this.cardNumber, Movimenti: [] });
-    this.firestore.collection('user').doc(us.id).update({Carte : us.Carte});
+
+  apriCard(card: card, isNuovo: boolean) {
+    const dialogCard = this.dialog.open(DialogContentCard, {
+      data: {
+        Card: card
+      }
+    });
+  }
+
+  nuovaCard(user: firebaseUser){
+    const dialogCard = this.dialog.open(DialogContentCard, {
+      data: {
+        User: user
+      }
+    });
   }
 
   elimina(id){
@@ -148,4 +162,18 @@ export class UtentiComponent implements OnInit {
     },0);
   }
 
+}
+
+@Component({
+  selector: 'dialog-card-content',
+  template: `
+    <app-card-edit *ngIf="data.User" [user]="data.User"></app-card-edit>
+    <app-card-detail *ngIf="data.Card" [card]="data.Card" style="width: 400px;"></app-card-detail>
+`,
+})
+export class DialogContentCard {
+  /**
+   *
+   */
+  constructor(@Inject(MAT_DIALOG_DATA) public data: card) {}
 }

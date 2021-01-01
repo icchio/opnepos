@@ -16,25 +16,24 @@
         </div>
     </mat-toolbar>
     <mat-list>
-        <mat-list-item *ngFor="let utente of utenti | async | filter:srcObj.Nome ; let i = index" (click)="getDettaglio(utente.id)">
+        <mat-list-item *ngFor="let utente of utenti | async | filter:srcObj.Nome ; let i = index"
+        (click)="getDettaglio(utente.id)"
+        style="margin-bottom: 10px;">
             <!-- <mat-icon mat-list-icon>folder</mat-icon> -->
             <div mat-line> {{utente.Nome}} {{utente.Cognome}}</div>
             <div mat-line> {{utente.Telefono}} </div>
-            <div mat-line>
-              <input type="text" [(ngModel)]="cardNumber" placeholder="inserisci numero carta">
-              <button mat-icon-button (click)="aggiungiCard(utente)">
-                <mat-icon>add</mat-icon>
-             </button>
-            </div>
-            <div mat-line>
-             <ul>
-                 <li *ngFor="let c of utente.Carte">{{c | json}}</li>
-             </ul>
+            <div fxLayout="row" mat-line>
+              <div fxLayout="row" *ngFor="let card of utente.Carte; let l = last; let im = index">
+                <span *ngIf="im == 0" class="material-icons">
+                  credit_card
+                  </span>
+                <mat-card class="carte" (click)="apriCard(card)">{{card.IdCard}}</mat-card>
+                <mat-card class="carte" *ngIf="l" (click)="nuovaCard(utente)">+</mat-card>
+              </div>
             </div>
             <button mat-icon-button (click)="elimina(utente.id)">
                 <mat-icon>delete_forever</mat-icon>
              </button>
-            <mat-divider></mat-divider>
           </mat-list-item>
     </mat-list>
     <div class="utenti" fxLayout="row">

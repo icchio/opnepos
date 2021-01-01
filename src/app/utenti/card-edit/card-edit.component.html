@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>
+  <span class="material-icons">
+  credit_card
+  </span>
+  Aggiungi nuova carta</h1>
+  <hr>
+<mat-dialog-content fxLayoutAlign="center center">
+  <input type="text" [(ngModel)]="cardNumber" placeholder="inserisci numero carta">
+</mat-dialog-content>
+<mat-dialog-actions fxLayoutAlign="center center">
+  <button mat-raised-button color="warn" [disabled]="!cardNumber" (click)="aggiungiCard()">Crea</button>
+</mat-dialog-actions>
