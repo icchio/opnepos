@@ -11,19 +11,24 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { CassaComponent } from './cassa/cassa.component';
-import { UtentiComponent } from './utenti/utenti.component';
+import { UtentiComponent, DialogContentCard } from './utenti/utenti.component';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {CustomMaterialModule} from './mat-module/mat-module.module';
+import { CardDetailComponent } from './utenti/card-detail/card-detail.component';
+import { CardEditComponent } from './utenti/card-edit/card-edit.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CassaComponent,
-    UtentiComponent
+    UtentiComponent,
+    CardDetailComponent,
+    DialogContentCard,
+    CardEditComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +42,7 @@ import {CustomMaterialModule} from './mat-module/mat-module.module';
     BrowserAnimationsModule,
     CustomMaterialModule
   ],
+  entryComponents: [DialogContentCard],
   providers: [],
   bootstrap: [AppComponent]
 })
