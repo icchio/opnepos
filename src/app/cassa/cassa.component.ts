@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { listino } from '../interfaces'
+import { AngularFirestore } from '@angular/fire/firestore';
+import { HttpClient } from '@angular/common/http';
 
-export interface billObj{
-  tag : string,
-  importo: number
-}
 
 @Component({
   selector: 'app-cassa',
@@ -18,23 +17,38 @@ export class CassaComponent implements OnInit {
   calcVal = 0.00;
   
   unitCount = 0;
-  subject: BehaviorSubject<billObj[]> = new BehaviorSubject<any>([]);
+  subject: BehaviorSubject<listino[]> = new BehaviorSubject<any>([]);
   importi : Observable<any> =  this.subject.asObservable();
+
+  subjectListino: BehaviorSubject<listino[]> = new BehaviorSubject<any>([]);
+  listino : Observable<any> =  this.subjectListino.asObservable();
 
   falgmulti = false;
   valmulti = 0;
 
-  constructor() { 
+  totItem = 0;
+
+  constructor(  
+    public firestore : AngularFirestore,
+    public http: HttpClient
+    ) { 
     this.importi.subscribe(k => 
      {
        this.calcVal = 0;
-       k.forEach((obj : billObj) => {
+       this.totItem = 0;
+       k.forEach((obj : listino) => {
+         this.totItem ++;
          this.calcVal = this.calcVal + obj.importo;
        });
      })
   }
 
   ngOnInit() {
+    this.listino = this.firestore.collection('listino').snapshotChanges().pipe( map(actions => actions.map(a => {
+      const data = a.payload.doc.data() as listino;
+      const id = a.payload.doc.id;
+      return { id, ...data };
+    })))
   }
 
   clickNum(n){
@@ -137,20 +151,19 @@ export class CassaComponent implements OnInit {
     this.unitCount=0;
   }
 
-
   addToSumArray(toadd,tag?){
     if(tag == null){
       tag = '';
     }
 
     this.importi.pipe(take(1)).subscribe(val => {
-      var obj: billObj = {importo: toadd, tag: tag}
+      var obj: listino = {importo: toadd, tag: tag}
       const newArr = [...val, obj];
       this.subject.next(newArr);
     })
   }
 
-  remove(item:billObj){
+  remove(item:listino){
     this.importi.pipe(take(1)).subscribe(val => {
       let thisarray = val.filter( k => { 
         return  k != item
@@ -158,6 +171,10 @@ export class CassaComponent implements OnInit {
       const newArr = [...thisarray];
       this.subject.next(newArr);
     })
+  }
+
+  addebita(){
+
   }
 
 }

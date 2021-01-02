@@ -1,4 +1,6 @@
-<div fxLayout="row" style="width: 100%; height: 40px; background-color:#afafaf; padding:10px;">
+<div fxLayout="row" style="width: 100%; height: 40px; background-color:#fff; padding:10px;">
+    <div fxFlex fxLayoutAlign="start center">Carta numero xxxxxxx di Giovanni Cosi</div>
+    <div fxFlex fxLayoutAlign="end center"> <mat-icon>settings</mat-icon></div>
 </div>
 <div fxLayout="row" style="width: 100%; height: calc(100% - 40px); background-color:#f5f5f5; padding:10px;" fxLayoutGap="10px">
     <div fxLayout="column" fxFlex="40" fxLayoutGap="10px">
@@ -42,30 +44,18 @@
         <div style="width: 100%;height: 16%; min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
             <div fxFlex="200" class="calcBtn" (click)="sum('varie')" fxLayoutAlign="center center">Varie</div>
         </div>
-        <div style="width: 100%;height: 16%; min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="sumPreset(3.30,'birram')" fxLayoutAlign="center center">Birra media</div>
-        </div>  
-        <div style="width: 100%;height: 16%;min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="sumPreset(2.20,'birrap')" fxLayoutAlign="center center">Birra piccola</div>
-        </div>  
-        <div style="width: 100%;height: 16%;min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="sumPreset(1.80,'coca')"fxLayoutAlign="center center">Coca</div>
-        </div>  
-        <div style="width: 100%;height: 16%;min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="sumPreset(4.50,'panino')"fxLayoutAlign="center center">Panino</div>
-        </div>
-        <div style="width: 100%;height: 16%;min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="sumPreset(2.10,'patate')"fxLayoutAlign="center center">Patate</div>
-        </div>
+        <div *ngFor="let listItem of listino | async" style="width: 100%;height: 16%; min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="200" class="calcBtn" (click)="sumPreset(listItem.importo, listItem.tag)" fxLayoutAlign="center center">{{listItem.descrizione}}</div>
+        </div> 
     </div>
     <div fxLayout="column" fxFlex="27" fxLayoutGap="10px" >
         <div class="prevTotale" fxLayout="row" fxLayoutAlign="end center">
            € {{calcVal.toFixed(2).replace('.',',')}}
         </div>
         <div style="width: 100%;height: 16%;min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="addebita()"fxLayoutAlign="center center">Addebita</div>
+            <div fxFlex="200" class="calcBtn" (click)="addebita()" style="background-color: #5fbd7f;border-color: #fff;color: #404040;" fxLayoutAlign="center center">Addebita</div>
         </div>
-        <div style="width: 100%;padding:10px;background-color: #d6cca0;overflow-y: scroll;" fxLayout="column" fxLayoutGap="5px">
+        <div *ngIf="totItem > 0" style="width: 100%;padding:10px;background-color: #fff;overflow-y: scroll;" fxLayout="column" fxLayoutGap="5px">
             <div class="itemScontrino" fxLayout="row" *ngFor="let item of importi | async" fxLayoutAlign="start center">
                 <div fxFlex="30">{{item.tag}}</div>
                 <div fxFlex="50"> € {{item.importo.toFixed(2).replace('.',',')}}</div>
