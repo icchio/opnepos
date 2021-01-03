@@ -1,3 +1,5 @@
+import { firestore } from "firebase";
+
 export interface listino{
     tag : string,
     importo: number,
@@ -17,6 +19,6 @@ export interface card {
 }
 
 export interface movimentiCard {
-    date: Date;
-    importo: number;
+    Data: firestore.Timestamp;
+    Importo: number;
 }

@@ -1,12 +1,9 @@
-<h1 mat-dialog-title>
-  <span class="material-icons">
-  credit_card
-  </span>
-  Aggiungi nuova carta</h1>
-  <hr>
-<mat-dialog-content fxLayoutAlign="center center">
-  <input type="text" [(ngModel)]="cardNumber" placeholder="inserisci numero carta">
+<h1 mat-dialog-title>{{titolo}}</h1>
+<mat-dialog-content fxLayout="column" fxLayoutAlign="center center" style="width: 300px;">
+  <input style="height: 30px;width: 100%;margin-bottom: 20px;" type="text" [(ngModel)]="cardNumber" placeholder="inserisci numero carta" [disabled]="disableInput">
+  <input style="height: 30px;text-align: right;" type="text" [(ngModel)]="importo" placeholder="">
+  <calcolatore style="width: 100%; margin-top:30px;" [tipo]="'noop'" (display)="importo = $event"></calcolatore>
 </mat-dialog-content>
 <mat-dialog-actions fxLayoutAlign="center center">
-  <button mat-raised-button color="warn" [disabled]="!cardNumber" (click)="aggiungiCard()">Crea</button>
+  <button mat-raised-button color="warn" [disabled]="!cardNumber" (click)="salvaCard()">{{btnName}}</button>
 </mat-dialog-actions>

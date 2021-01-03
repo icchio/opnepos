@@ -2,8 +2,9 @@
   <span class="material-icons">
   credit_card
   </span>
-  {{card.IdCard}}</h1>
-  <hr>
+  {{card.IdCard}}
+</h1>
+
 <mat-dialog-content>
   <div mat-line>
     <span class="material-icons">
@@ -15,7 +16,7 @@
     <mat-list>
       <mat-list-item *ngFor="let mov of card.Movimenti">
         <div mat-line>
-          {{mov.date | date: 'dd/MM/YYYY'}} - {{mov.importo | currency: '€'}}
+          {{mov.Data.toDate() | date: 'dd/MM/yyyy'}} - {{mov.Importo | currency: '€'}}
         </div>
       </mat-list-item>
     </mat-list>
