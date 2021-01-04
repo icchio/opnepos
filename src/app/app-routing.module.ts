@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CassaComponent } from './cassa/cassa.component'
-import { UtentiComponent } from './utenti/utenti.component'
+import { CassaComponent } from './pages/cassa/cassa.component'
+import { UtentiComponent } from './pages/utenti/utenti.component'
 
 const routes: Routes = [
   { path : '', component: CassaComponent},

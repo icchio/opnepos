@@ -22,7 +22,6 @@ import { CustomMaterialModule } from './mat-module/mat-module.module';
 import { CardDetailComponent } from './utenti/card-detail/card-detail.component';
 import { CardEditComponent } from './utenti/card-edit/card-edit.component';
 import { CalcolatoreComponent } from './calcolatore/calcolatore.component';
-import { DettaglioUtentiComponent } from './utenti/dettaglio-utenti/dettaglio-utenti.component';
 
 
 @NgModule({
@@ -34,7 +33,6 @@ import { DettaglioUtentiComponent } from './utenti/dettaglio-utenti/dettaglio-ut
     DialogContentCard,
     CardEditComponent,
     CalcolatoreComponent,
-    DettaglioUtentiComponent
   ],
   imports: [
     FontAwesomeModule,

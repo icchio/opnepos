@@ -1,4 +1,4 @@
-import { card, movimentiCard, user} from './../interfaces';
+import { card, movimentiCard, user} from '../../interfaces/interfaces';
 import { Component, OnInit, ElementRef, ViewChild, ViewChildren, QueryList, Inject } from '@angular/core';
 
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
