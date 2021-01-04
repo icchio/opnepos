@@ -1,20 +1,106 @@
-<div fxLayout="column" 
-    style="width: 100%; height: 100%; background-color:#f5f5f5; padding:10px;" 
+<div fxLayout="column"
+    style="width: 100%; height: 100%; background-color:#f5f5f5; padding:0px;"
     fxLayoutGap="10px">
-    <div class="utenti" fxLayoutAlign="start center" fxLayout="row" fxLayoutGap="10px">
-     <div>Nome<input type="text"></div>
-     <div>Cognome<input type="text"></div>
-     <div>Telefono<input type="text"></div>
-     <div><button type="button">Cerca</button></div>
+    <!-- <div fxLayout="row" style="width: 100%; height: 80px; background-color:#fff; padding:10px;">
+        <mat-form-field floatLabel='never'>
+            <mat-label>Ricerca</mat-label>
+            <input matInput placeholder="Ex. Pizza" [(ngModel)]="srcObj.Nome">
+        </mat-form-field>
+    </div> -->
+    <div fxLayout="row">
+        <div fxFlex="50" fxLayoutAlign="start center">
+            <div style="padding-top:20px;" fxLayoutAlign="start center" fxLayout="row" fxLayoutGap="10px">
+                <input  style="width: 0px;padding: 0px;border: 0px;" 
+                (keyup.enter)="cercaUtente(srcNumeroCarta)" 
+                id="inputCard" 
+                [(ngModel)]="srcNumeroCarta" type="text">
+                <button mat-stroked-button (click)="setCercaCard()" >Cerca Card</button>
+            </div>
+        </div>
+        <div fxFlex fxLayoutAlign="end center">
+            <fa-icon (click)="addusr()"style="font-size: 32px;margin-right: 20px;" icon="user-plus"></fa-icon> 
+        </div>
     </div>
-    <div class="utenti" *ngFor="let utente of utenti | async" fxLayout="row">
-        {{utente.Nome}} {{utente.Cognome}} {{utente.Telefono}}
-        <div><button type="button" (click)="elimina(utente.id)">Elimina</button></div>
-    </div>
-    <div class="utenti" fxLayout="row">
-        <div [(ngModel)]="nuovoUser.Nome">Nome<input type="text"></div>
-        <div [(ngModel)]="nuovoUser.Cognome">Cognome<input type="text"></div>
-        <div [(ngModel)]="nuovoUser.Telefono">Telefono<input type="text"></div>
-        <div><button type="button" (click)="aggiungi()">Aggiungi</button></div>
+    <div fxLayout="column" style="padding: 10px; padding-top:20px;">
+        <div fxLayout="column" class="userBox" *ngIf="newUserRow">
+            <div fxLayout="row">
+                <div class="userAvatar">{{newUsr.Nome.charAt(0)}}{{newUsr.Cognome.charAt(0)}}</div>
+                <div fxFlex fxLayout="column" style="margin-left: 10px;">
+                    <div  fxLayout="row" fxLayoutGap="10px"> 
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Nome</mat-label>
+                            <input id="Nome" matInput 
+                            (focus)="onInputFocus($event)"
+                            (change)="onInputChange($event)"
+                            [(ngModel)]="newUsr.Nome">
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Cognome</mat-label>
+                            <input id="Cognome" matInput 
+                            (focus)="onInputFocus($event)"
+                            (change)="onInputChange($event)"
+                            [(ngModel)]="newUsr.Cognome">
+                        </mat-form-field>
+                     </div>
+                    <div style="margin-top: -10px;margin-left: -25px;"> 
+                        <mat-icon style="font-size:13px;">phone</mat-icon> 
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Telefono</mat-label>
+                            <input id="Telefono" matInput 
+                            (focus)="onInputFocus($event)"
+                            (change)="onInputChange($event)"
+                            [(ngModel)]="newUsr.Telefono">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="10" fxLayoutAlign="end start">
+                    <button mat-icon-button (click)="closeNew()">
+                        <fa-icon  style="color: #a83939;font-size: 30px;" icon="times"></fa-icon>
+                    </button>
+                </div>
+            </div>
+            <div fxLayout="row">
+                <button style="width: 100%;" mat-flat-button color="primary" (click)="aggiungiUtente()" >Salva</button>
+            </div>
+        </div>
+        <div fxLayout="column" *ngFor="let utente of utenti | async" class="userBox">
+            <div fxLayout="row" (click)="getDettaglio(utente)">
+                <div class="userAvatar">{{utente.Nome.charAt(0)}}{{utente.Cognome.charAt(0)}}</div>
+                <div fxFlex fxLayout="column" style="margin-left: 10px;">
+                    <div> {{utente.Nome}} {{utente.Cognome}}</div>
+                    <div style="margin-top: 10px;"> 
+                        <mat-icon style="font-size:13px;">phone</mat-icon> 
+                        {{utente.Telefono}}
+                    </div>
+                </div>
+                <div fxFlex="10" fxLayoutAlign="end center">
+                    <button mat-icon-button (click)="elimina(utente.id)">
+                        <mat-icon>delete_forever</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="20px" class="cardContainer" *ngIf="utente.id == userIdOpen">
+                <div fxFlex="30" fxLayout="column" *ngFor="let card of utente.Carte; let l = last; let im = index" class="cardItem">
+                    <div fxLayout="row" fxFlex="33" fxFlexAlign="center start">
+                        <div fxFlex style="font-size: 24px;margin-top:12px;">{{card.IdCard}}</div>
+                        <div fxLayout="row" fxFlexAlign="center center" style="width: 60px; font-size: 22px;cursor: pointer;" (click)="deleteCard(card, utente.Carte, utente.id)"> 
+                            <fa-icon style="text-align: center;width: 100%;margin-top: 12px;color: #a83939;" icon="trash"></fa-icon>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxFlex="33"  style="font-size: 40px;;" fxFlexAlign="center start" (click)="apriCard(card)">
+                        {{SaldoCarta(card.Movimenti) | currency: '€'}}
+                    </div>
+                    <div fxLayout="row" style="width: 100%;margin-top: 20px;">
+                        <button style="width: 100%;" mat-flat-button color="primary" (click)="cardEdit(utente, card)" >Ricarica Card</button>
+                    </div>
+                </div>
+                <div fxFlex="30" fxLayout="column" class="cardItem" fxLayoutAlign="center center" (click)="cardEdit(utente, null)">
+                    <fa-icon style="font-size: 40px;" icon="plus"></fa-icon> 
+                </div>
+            </div>
+            <!-- <mat-card class="carte" *ngIf="l" (click)="nuovaCard(utente)">+</mat-card> -->
+        </div>
     </div>
 </div>
+<div class="simple-keyboard" [hidden]="keyboardHidden" style="position: absolute; z-index: 99999; bottom: 0px;
+height: 30%; width: 100%;min-height: 240px;left: 0px;"></div>

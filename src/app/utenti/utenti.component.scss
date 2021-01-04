@@ -2,8 +2,40 @@
     height: 100%;
 }
 
-.utenti{
-    height: 80px;
-    padding: 10px;
-    border:1px solid;
+.mat-card.carte {
+  margin: 5px;
+  cursor: pointer;
+}
+
+.userBox{
+  min-height: 80px;
+  padding: 14px;
+  border: 1px solid #969696;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  background-color: #fff;
+}
+
+.userAvatar{
+  height: 50px; 
+  width: 50px; 
+  border-radius: 50%; 
+  background-color: #c2c2c2;
+  font-size: 20px;
+  line-height: 50px;
+  text-align: center;
+}
+.cardContainer{
+  margin-top: 15px;
+  flex-wrap: wrap !important;
+}
+.cardItem{
+  height: 180px;
+  border: 1px solid #969696;
+  background-color: #f5f5f5;
+  border-radius: 18px;
+  margin-bottom: 15px;
+  padding: 10px;
+  -webkit-box-shadow: 10px 8px 6px 0px rgba(0,0,0,0.14); 
+  box-shadow: 10px 8px 6px 0px rgba(0,0,0,0.14);
 }

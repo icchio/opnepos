@@ -7,7 +7,20 @@
 <br>
 <input type="text" (change)="findItem(telSrc)" [(ngModel)]="telSrc"> -->
 <div fxLayout="row" style="height: 100%;">
-  <div fxLayout="column" style="width: 80px; height: 100%;"></div>
+  <div fxLayout="column" style="width: 80px; height: 100%;" fxLayoutAlign="start center">
+    <a routerLink="/cassa" class="menuIcon" routerLinkActive="active" fxLayout="column" fxLayoutAlign="center center">
+      <fa-icon icon="cash-register"></fa-icon>
+    </a>
+    <a routerLink="/utenti" class="menuIcon" routerLinkActive="active" fxLayout="column" fxLayoutAlign="center center">
+      <fa-icon icon="users"></fa-icon>
+    </a>
+    <a routerLink="/impostazioni" class="menuIcon" routerLinkActive="active" fxLayout="column" fxLayoutAlign="center center">
+      <fa-icon icon="cogs"></fa-icon>
+    </a>
+    <div fxFlex fxLayoutAlign="center end">
+      <img src="../assets/logo.png" width="80%" style="margin-bottom: 10px;">
+    </div>
+  </div>
   <div fxLayout="column" style="width: calc(100% - 80px); height: 100%;">
     <router-outlet></router-outlet>
   </div>

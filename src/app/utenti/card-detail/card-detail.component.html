@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>
+  <span class="material-icons">
+  credit_card
+  </span>
+  {{card.IdCard}}
+</h1>
+
+<mat-dialog-content>
+  <div mat-line>
+    <span class="material-icons">
+      receipt_long
+      </span>
+    <b>Movimenti</b>
+  </div>
+  <div *ngIf="card.Movimenti.length > 0; else nomovimenti" mat-dialog-content>
+    <mat-list>
+      <mat-list-item *ngFor="let mov of card.Movimenti">
+        <div mat-line>
+          {{mov.Data.toDate() | date: 'dd/MM/yyyy'}} - {{mov.Importo | currency: '€'}}
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <ng-template #nomovimenti>
+    nessun movimento presente
+  </ng-template>
+</mat-dialog-content>

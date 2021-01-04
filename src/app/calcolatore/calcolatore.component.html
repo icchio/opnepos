@@ -1,0 +1,39 @@
+<div fxLayout="row" style="height: 100%;width: 100%;" fxLayoutGap="10px">
+    <div fxFlex="full ? 80 : 100" fxLayout="column" fxLayoutGap="10px" style="height: 100%;">
+        <div style="height: 25%; width: 100%; margin-top: 30px;" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="33" class="calcBtn" (click)="clickNum(7)"  fxLayoutAlign="center center">7</div>
+            <div fxFlex="33" class="calcBtn" (click)="clickNum(8)" fxLayoutAlign="center center">8</div>
+            <div fxFlex="33" class="calcBtn" (click)="clickNum(9)" fxLayoutAlign="center center">9</div>
+        </div>
+        <div style="height: 25%; width: 100%;" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="33" class="calcBtn" (click)="clickNum(4)" fxLayoutAlign="center center">4</div>
+            <div fxFlex="33" class="calcBtn" (click)="clickNum(5)" fxLayoutAlign="center center">5</div>
+            <div fxFlex="33" class="calcBtn" (click)="clickNum(6)" fxLayoutAlign="center center">6</div>
+        </div>
+        <div style="height: 25%; width: 100%;" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="33" class="calcBtn" (click)="clickNum(1)" fxLayoutAlign="center center">1</div>
+            <div fxFlex="33" class="calcBtn" (click)="clickNum(2)" fxLayoutAlign="center center">2</div>
+            <div fxFlex="33" class="calcBtn" (click)="clickNum(3)" fxLayoutAlign="center center">3</div>
+        </div>
+        <div style="height: 25%; width: 100%;" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="full ? 66 : 100" class="calcBtn" (click)="clickNum(0)" fxLayoutAlign="center center">0</div>
+        </div>
+        <div style="height: 25%; width: 100%;" fxLayout="row" fxLayoutGap="10px" *ngIf="!full">
+            <div fxFlex="200" class="calcBtn" (click)="canc()" fxLayoutAlign="center center">C</div>
+        </div> 
+    </div>
+    <div fxFlex="20" fxLayout="column" fxLayoutGap="10px" style="height: 100%;" *ngIf="full">
+        <div style="height: 25%; width: 100%;" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="200" class="calcBtn" (click)="canc()" fxLayoutAlign="center center">C</div>
+        </div> 
+        <div style="height: 25%; width: 100%;" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="200" class="calcBtn" (click)="sub()" fxLayoutAlign="center center">-</div>
+        </div> 
+        <div style="height: 25%; width: 100%;" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="200" class="calcBtn" (click)="multi()" fxLayoutAlign="center center">X</div>
+        </div>  
+        <div style="width: 100%;height: 25%" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="200" class="calcBtn" (click)="sum('varie')" fxLayoutAlign="center center">+</div>
+        </div> 
+    </div>
+</div>

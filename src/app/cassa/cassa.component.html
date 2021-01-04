@@ -1,71 +1,31 @@
-<div fxLayout="row" style="width: 100%; height: 40px; background-color:#afafaf; padding:10px;">
+<div fxLayout="row" style="width: 100%; height: 40px; background-color:#fff; padding:10px;">
+    <input style="width: 0px;padding: 0px;border: 0px;"  id="txtcardinput" type="text" [(ngModel)]="cardSrc" (keyup.enter)="cercaUtente(cardSrc)" >
+    <div fxFlex fxLayoutAlign="start center" *ngIf="userSelected">Carta numero {{usercardNo}} di {{userSelected.Nome}} {{userSelected.Cognome}} SALDO CARTA {{userSelectedSaldo | currency:'€'}}</div>
+    <div fxFlex fxLayoutAlign="end center"> <mat-icon>settings</mat-icon></div>
 </div>
 <div fxLayout="row" style="width: 100%; height: calc(100% - 40px); background-color:#f5f5f5; padding:10px;" fxLayoutGap="10px">
     <div fxLayout="column" fxFlex="40" fxLayoutGap="10px">
         <div class="display">
             {{displayText}}
         </div>
-        <div style="height: 16%; width: 100%; margin-top: 30px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="33" class="calcBtn" (click)="clickNum(7)"  fxLayoutAlign="center center">7</div>
-            <div fxFlex="33" class="calcBtn" (click)="clickNum(8)" fxLayoutAlign="center center">8</div>
-            <div fxFlex="33" class="calcBtn" (click)="clickNum(9)" fxLayoutAlign="center center">9</div>
-        </div>
-        <div style="height: 16%; width: 100%;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="33" class="calcBtn" (click)="clickNum(4)" fxLayoutAlign="center center">4</div>
-            <div fxFlex="33" class="calcBtn" (click)="clickNum(5)" fxLayoutAlign="center center">5</div>
-            <div fxFlex="33" class="calcBtn" (click)="clickNum(6)" fxLayoutAlign="center center">6</div>
-        </div>
-        <div style="height: 16%; width: 100%;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="33" class="calcBtn" (click)="clickNum(1)" fxLayoutAlign="center center">1</div>
-            <div fxFlex="33" class="calcBtn" (click)="clickNum(2)" fxLayoutAlign="center center">2</div>
-            <div fxFlex="33" class="calcBtn" (click)="clickNum(3)" fxLayoutAlign="center center">3</div>
-        </div>
-        <div style="height: 16%; width: 100%;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="66" class="calcBtn" (click)="clickNum(0)" fxLayoutAlign="center center">0</div>
-        </div>
-    </div>
-    <div fxLayout="column" fxFlex="7" fxLayoutGap="10px">
-        <div style="height: calc(16% + 2px); width: 100%;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="canc()" fxLayoutAlign="center center">C</div>
-        </div> 
-        <div style="height: 16%; width: 100%;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="sub()" fxLayoutAlign="center center">-</div>
-        </div> 
-        <div style="height: 16%; width: 100%;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="multi()" fxLayoutAlign="center center">X</div>
-        </div>  
-        <div style="width: 100%;height: 32%" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="sum('varie')" fxLayoutAlign="center center">+</div>
-        </div>  
+        <calcolatore fxFlex (display)="displayText = $event" (calcEv)="sum($event,'varie')"></calcolatore>
     </div>
     <div fxLayout="column" fxFlex="26" fxLayoutGap="10px" style="overflow-y: scroll;">
         <div style="width: 100%;height: 16%; min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="sum('varie')" fxLayoutAlign="center center">Varie</div>
+            <div fxFlex="200" class="calcBtn" (click)="sumPreset(this.displayText,'varie')" fxLayoutAlign="center center">Varie</div>
         </div>
-        <div style="width: 100%;height: 16%; min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="sumPreset(3.30,'birram')" fxLayoutAlign="center center">Birra media</div>
-        </div>  
-        <div style="width: 100%;height: 16%;min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="sumPreset(2.20,'birrap')" fxLayoutAlign="center center">Birra piccola</div>
-        </div>  
-        <div style="width: 100%;height: 16%;min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="sumPreset(1.80,'coca')"fxLayoutAlign="center center">Coca</div>
-        </div>  
-        <div style="width: 100%;height: 16%;min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="sumPreset(4.50,'panino')"fxLayoutAlign="center center">Panino</div>
-        </div>
-        <div style="width: 100%;height: 16%;min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="sumPreset(2.10,'patate')"fxLayoutAlign="center center">Patate</div>
-        </div>
+        <div *ngFor="let listItem of listino | async" style="width: 100%;height: 16%; min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
+            <div fxFlex="200" class="calcBtn" (click)="sumPreset(listItem.importo, listItem.tag)" fxLayoutAlign="center center">{{listItem.descrizione}}</div>
+        </div> 
     </div>
     <div fxLayout="column" fxFlex="27" fxLayoutGap="10px" >
         <div class="prevTotale" fxLayout="row" fxLayoutAlign="end center">
            € {{calcVal.toFixed(2).replace('.',',')}}
         </div>
         <div style="width: 100%;height: 16%;min-height: 100px;" fxLayout="row" fxLayoutGap="10px">
-            <div fxFlex="200" class="calcBtn" (click)="addebita()"fxLayoutAlign="center center">Addebita</div>
+            <div fxFlex="200" class="calcBtn" (click)="addebita()" style="background-color: #5fbd7f;border-color: #fff;color: #404040;" fxLayoutAlign="center center">Addebita</div>
         </div>
-        <div style="width: 100%;padding:10px;background-color: #d6cca0;overflow-y: scroll;" fxLayout="column" fxLayoutGap="5px">
+        <div *ngIf="totItem > 0" style="width: 100%;padding:10px;background-color: #fff;overflow-y: scroll;" fxLayout="column" fxLayoutGap="5px">
             <div class="itemScontrino" fxLayout="row" *ngFor="let item of importi | async" fxLayoutAlign="start center">
                 <div fxFlex="30">{{item.tag}}</div>
                 <div fxFlex="50"> € {{item.importo.toFixed(2).replace('.',',')}}</div>

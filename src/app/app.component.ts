@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AngularFirestore, QueryFn } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -14,17 +15,18 @@ export class AppComponent {
   telSrc ='';
 
   constructor(public firestore : AngularFirestore){
-    this.items = firestore.collection('user').snapshotChanges().pipe( map(actions => actions.map(a => {
-      const data = a.payload.doc.data() as any;
-      const id = a.payload.doc.id;
-      return { id, ...data };
-    })))
+    firebase.firestore().enablePersistence();
+    // this.items = firestore.collection('user').snapshotChanges().pipe( map(actions => actions.map(a => {
+    //   const data = a.payload.doc.data() as any;
+    //   const id = a.payload.doc.id;
+    //   return { id, ...data };
+    // })))
   
-    this.firestore.collection('user').get().subscribe( p => {
-      p.docs.forEach(k => {
-        console.log(k.id)
-      })
-    })
+    // this.firestore.collection('user').get().subscribe( p => {
+    //   p.docs.forEach(k => {
+    //     console.log(k.id)
+    //   })
+    // })
   }
 
   addItem() {

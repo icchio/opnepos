@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-
-export interface billObj{
-  tag : string,
-  importo: number
-}
+import { listino, movimentiCard, user } from '../interfaces'
+import { AngularFirestore } from '@angular/fire/firestore';
+import { HttpClient } from '@angular/common/http';
+import { CalcService } from '../calcolatore/calc.service'
+import { firebaseUser } from '../utenti/utenti.component';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-cassa',
@@ -17,126 +18,93 @@ export class CassaComponent implements OnInit {
   displayText = '0,00';
   calcVal = 0.00;
   
-  unitCount = 0;
-  subject: BehaviorSubject<billObj[]> = new BehaviorSubject<any>([]);
+
+  subject: BehaviorSubject<listino[]> = new BehaviorSubject<any>([]);
   importi : Observable<any> =  this.subject.asObservable();
+
+  subjectListino: BehaviorSubject<listino[]> = new BehaviorSubject<any>([]);
+  listino : Observable<any> =  this.subjectListino.asObservable();
+
+  subjectUsr: BehaviorSubject<firebaseUser[]> = new BehaviorSubject<any>([]);
+  utenti : Observable<any> =  this.subjectUsr.asObservable();
 
   falgmulti = false;
   valmulti = 0;
 
-  constructor() { 
+  totItem = 0;
+
+  cardSrc ='';
+  userSelected: firebaseUser;
+  userSelectedSaldo = 0;
+  usercardNo = '';
+
+  constructor(  
+    public firestore : AngularFirestore,
+    public http: HttpClient,
+    public calcServ : CalcService
+    ) { 
     this.importi.subscribe(k => 
      {
        this.calcVal = 0;
-       k.forEach((obj : billObj) => {
+       this.totItem = 0;
+       k.forEach((obj : listino) => {
+         this.totItem ++;
          this.calcVal = this.calcVal + obj.importo;
        });
      })
   }
 
   ngOnInit() {
+    setInterval(() => {
+      document.getElementById('txtcardinput').focus();
+    },500)
+
+    this.listino = this.firestore.collection('listino').snapshotChanges().pipe( map(actions => actions.map(a => {
+      const data = a.payload.doc.data() as listino;
+      const id = a.payload.doc.id;
+      return { id, ...data };
+    })))
   }
 
-  clickNum(n){
-    if(this.falgmulti== true){
-      if(this.unitCount==0){
-        this.displayText = n
-      } else{
-        this.displayText = this.displayText.toString() + n;
-      }
-      this.unitCount = this.unitCount+1; 
-      return
-    }
 
-    this.displayText =this.displayText.replace(',','');
-    if(this.unitCount == 0){
-      this.displayText= '00' + n
-    }
-    if(this.unitCount == 1){
-      this.displayText= '0' + this.displayText.substring(this.displayText.length-1,this.displayText.length) + n
-    }
-    if(this.unitCount > 1){
-      if(this.displayText.substring(0,1) == '0'){
-        this.displayText = this.displayText.substring(1,this.displayText.length)
-      }
-      this.displayText = this.displayText + n;
-    }
-    this.unitCount = this.unitCount+1;  
-    this.displayText = this.displayText.substring(0,this.displayText.length -2) +','+this.displayText.substring(this.displayText.length -2,this.displayText.length);
-    //this.calcVal=  Number(this.displayText.replace(',','.'))
+  sum(ev,tag){
+      this.addToSumArray(ev,tag)
   }
 
-  canc(){
-    if(this.unitCount <= 0){
-      return;
-    }
-    if(this.falgmulti== true){
-      if(this.unitCount==1){
-        this.displayText = '0';
-        this.unitCount = this.unitCount-1; 
-        return;
-      }
-      this.displayText = this.displayText.substring(0,this.displayText.length - 1)
-      this.unitCount = this.unitCount-1; 
-      return
+  cercaUtente(srcNumeroCarta){
+    if(srcNumeroCarta != ""){
+      this.firestore.collection('user').get().subscribe(p => {
+        p.docs.forEach(u => {
+          let thisu = {id:u.id, ...u.data()} as firebaseUser
+          let card = thisu.Carte.find(p => p.IdCard == srcNumeroCarta)
+          if(card){
+            this.userSelected = thisu
+            this.usercardNo = srcNumeroCarta;
+            this.userSelectedSaldo = 0;
+            card.Movimenti.forEach((el:movimentiCard) => {
+              this.userSelectedSaldo = this.userSelectedSaldo + el.Importo;
+            });
+            document.getElementById('txtcardinput').focus();
+            this.cardSrc = '';
+            return;
+          }
+        })
+      })
     }
 
-    this.displayText =this.displayText.replace(',','');
-    this.unitCount = this.unitCount-1;
-    if(this.unitCount == 0){
-      this.displayText = '0' + this.displayText.substring(0,this.displayText.length - 1)
-    }
-    if(this.unitCount == 1){
-      this.displayText = '0' + this.displayText.substring(0,this.displayText.length - 1)
-    }
-    if(this.unitCount == 2){
-      this.displayText = '0' + this.displayText.substring(0,this.displayText.length - 1)
-    }
-    if(this.unitCount > 2){
-    this.displayText = this.displayText.substring(0,this.displayText.length - 1)
-    }
-    this.displayText = this.displayText.substring(0,this.displayText.length -2) +','+this.displayText.substring(this.displayText.length -2,this.displayText.length);
-    //this.calcVal=  Number(this.displayText.replace(',','.'))
   }
 
-  sum(tag){
-    if(this.falgmulti==true){
-      this.addToSumArray(Number(this.displayText)*this.valmulti,tag)
-      this.falgmulti = false;
-      this,this.valmulti =0;
-    } else {
-      this.addToSumArray(Number(this.displayText.replace(',','.')),tag)
-    }
-    this.displayText = "0,00";
-    this.unitCount=0;
-  }
+
 
   sumPreset(importo, tag){
-    this.addToSumArray(importo,tag)
-    this.displayText = "0,00";
-    this.unitCount=0;
-  }
-
-  sub(){
-    if(this.falgmulti==true){
-      this.addToSumArray(Number(this.displayText)*this.valmulti*-1)
-      this.falgmulti = false;
-      this,this.valmulti =0;
-    } else {
-      this.addToSumArray(-1 * Number(this.displayText.replace(',','.')))
+    if(typeof importo  == 'string'){
+      importo = Number(importo.replace(',','.'))
     }
-    
-    this.displayText = "0,00";
-    this.unitCount=0;
+    this.addToSumArray(importo,tag)
+    this.calcServ.resetCalc();
+    //this.displayText = "0,00";
+    //this.unitCount=0;
   }
-
-  multi(){
-    this.falgmulti = true
-    this.valmulti = Number(this.displayText.replace(',','.'))
-    this.displayText = "0";
-    this.unitCount=0;
-  }
-
 
   addToSumArray(toadd,tag?){
     if(tag == null){
@@ -144,13 +112,13 @@ export class CassaComponent implements OnInit {
     }
 
     this.importi.pipe(take(1)).subscribe(val => {
-      var obj: billObj = {importo: toadd, tag: tag}
+      var obj: listino = {importo: toadd, tag: tag, descrizione:''}
       const newArr = [...val, obj];
       this.subject.next(newArr);
     })
   }
 
-  remove(item:billObj){
+  remove(item:listino){
     this.importi.pipe(take(1)).subscribe(val => {
       let thisarray = val.filter( k => { 
         return  k != item
@@ -158,6 +126,20 @@ export class CassaComponent implements OnInit {
       const newArr = [...thisarray];
       this.subject.next(newArr);
     })
+  }
+
+  addebita(){
+    let Movimento: movimentiCard = { Data : firebase.firestore.Timestamp.fromDate(new Date()),Importo:this.calcVal*-1}
+    this.userSelected.Carte.find(p => p.IdCard == this.usercardNo).Movimenti.push(Movimento)
+    this.firestore.collection('user').doc(this.userSelected.id).update({Carte : this.userSelected.Carte});
+    this.userSelected = null;
+    this.userSelectedSaldo = 0;
+    this.usercardNo = '';
+    this.importi.pipe(take(1)).subscribe(val => {
+      let newArr =  []
+      this.subject.next(newArr);
+    })
+    this.calcServ.resetCalc()
   }
 
 }
