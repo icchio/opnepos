@@ -1,7 +1,7 @@
 import { AngularFirestore } from '@angular/fire/firestore';
-import { firebaseUser } from './../utenti.component';
+import { firebaseUser } from '../utenti.component';
 import { Component, Input, OnInit, ViewChildren } from '@angular/core';
-import { card, movimentiCard } from 'src/app/interfaces';
+import { card, movimentiCard } from 'src/app/interfaces/interfaces';
 import { ViewChild } from '@angular/core';
 import * as firebase from 'firebase';
 import { defer } from 'rxjs';

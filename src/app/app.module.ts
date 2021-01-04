@@ -10,18 +10,18 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
-import { CassaComponent } from './cassa/cassa.component';
-import { UtentiComponent, DialogContentCard } from './utenti/utenti.component';
+import { CassaComponent } from './pages/cassa/cassa.component';
+import { UtentiComponent, DialogContentCard } from './pages/utenti/utenti.component';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
-import { CustomMaterialModule } from './mat-module/mat-module.module';
-import { CardDetailComponent } from './utenti/card-detail/card-detail.component';
-import { CardEditComponent } from './utenti/card-edit/card-edit.component';
-import { CalcolatoreComponent } from './calcolatore/calcolatore.component';
+import { CustomMaterialModule } from './core-module/mat-module.module';
+import { CardDetailComponent } from './pages/utenti/card-detail/card-detail.component';
+import { CardEditComponent } from './pages/utenti/card-edit/card-edit.component';
+import { CalcolatoreComponent } from './components/calcolatore/calcolatore.component';
 
 
 @NgModule({

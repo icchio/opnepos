@@ -1,4 +1,4 @@
-import { card } from './../../interfaces';
+import { card } from '../../../interfaces/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';

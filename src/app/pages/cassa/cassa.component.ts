@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { listino, movimentiCard, user } from '../interfaces'
+import { listino, movimentiCard, user } from '../../interfaces/interfaces'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { HttpClient } from '@angular/common/http';
-import { CalcService } from '../calcolatore/calc.service'
+import { CalcService } from '../../components/calcolatore/calc.service'
 import { firebaseUser } from '../utenti/utenti.component';
 import * as firebase from 'firebase';
 
