@@ -23,7 +23,9 @@ export class UtentiComponent implements OnInit {
 
   value: string = '';
   keyboard: Keyboard;
-  nuovoUser: user;
+  inputName = "Nome";
+
+
 
   subject: BehaviorSubject<firebaseUser[]> = new BehaviorSubject<any>([]);
   utenti : Observable<any> =  this.subject.asObservable();
@@ -35,9 +37,10 @@ export class UtentiComponent implements OnInit {
   cardNumber: string;
 
   userIdOpen = '';
+  newUserRow = false;
   keyboardHidden = true;
 
-  srcObj: user;
+  newUsr: user;
   rowcount = 0;
   constructor(
     public firestore : AngularFirestore,
@@ -46,7 +49,7 @@ export class UtentiComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.srcObj = {
+    this.newUsr = {
       Nome: '',
       Cognome: '',
       Telefono: '',
@@ -66,18 +69,77 @@ export class UtentiComponent implements OnInit {
   }
   ngAfterViewInit(): void {
     this.keyboard = new Keyboard({
-      onChange: input => {this.value = input},
-      onKeyPress: button => this.onKeyPress(button)
+      debug: true,
+      inputName: this.inputName,
+      onChange: (input) => this.onChange(input),
+      onKeyPress: (button) => this.onKeyPress(button),
+      preventMouseDownDefault: true // If you want to keep focus on input
     });
+
+    /**
+     * Since we have default values for our inputs,
+     * we must sync them with simple-keyboard
+     */
+    //this.keyboard.replaceInput(this.newUsr);
   }
 
 
+  onInputFocus = (event: any) => {
+    this.inputName = event.target.id;
+
+    console.log("Focused input", this.inputName);
+
+    this.keyboard.setOptions({
+      inputName: event.target.id
+    });
+  };
+
+  setInputCaretPosition = (elem: any, pos: number) => {
+    if (elem.setSelectionRange) {
+      elem.focus();
+      elem.setSelectionRange(pos, pos);
+    }
+  };
+
+  onInputChange = (event: any) => {
+    this.keyboard.setInput(event.target.value, event.target.id);
+  };
+
+  onChange = (input: string) => {
+    this.newUsr[this.inputName] = input;
+    console.log("Input changed", input);
+
+    /**
+     * Synchronizing input caret position
+     * This part is optional and only relevant if using the option "preventMouseDownDefault: true"
+     */
+    let caretPosition = this.keyboard.caretPosition;
+
+    if (caretPosition !== null)
+      this.setInputCaretPosition(
+        document.querySelector(`#${this.inputName}`),
+        caretPosition
+      );
+
+    console.log("caretPosition", caretPosition);
+  };
+
   onKeyPress = (button: string) => {
     console.log("Button pressed", button);
+
     /**
      * If you want to handle the shift and caps lock buttons
      */
-    //if (button === "{shift}" || button === "{lock}") this.handleShift();
+    if (button === "{shift}" || button === "{lock}") this.handleShift();
+  };
+
+  handleShift = () => {
+    let currentLayout = this.keyboard.options.layoutName;
+    let shiftToggle = currentLayout === "default" ? "shift" : "default";
+
+    this.keyboard.setOptions({
+      layoutName: shiftToggle
+    });
   };
 
   keysrcuser(ev){
@@ -87,38 +149,15 @@ export class UtentiComponent implements OnInit {
   cercaUtente(ncard){
     console.log('qui')
     if(ncard != ""){
-      this.utenti = this.firestore.collection('user',
-      q => q
-      .where('Carte','array-contains',ncard)).snapshotChanges().pipe(map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as any;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      })))
+
     } else {
-      this.utenti = this.firestore.collection('user').snapshotChanges().pipe(map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as any;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      })))
+      
     }
 
-
-
-    // this.utenti=this.firestore.collection(
-    //     'user',
-    //     q => q
-    //     .where('Telefono','>=',this.srcObj.Telefono)
-    //     .where('Telefono', '<', this.srcObj.Telefono + 'z')
-    //   ).snapshotChanges().pipe( map(actions => actions.map(a => {
-    //   const data = a.payload.doc.data() as any;
-    //   const id = a.payload.doc.id;
-    //   return { id, ...data };
-    // })))
+ 
   }
 
   getDettaglio(u:firebaseUser) {
-    //this.firestore.collection('user').doc(id).valueChanges().subscribe((r:user) =>{console.log(r)})
-    //this.firestore.collection('user').doc(id).get().subscribe(r => {console.log(r.data())})
     if(u.id != this.userIdOpen){
       this.userIdOpen = u.id;
     } else {
@@ -128,7 +167,7 @@ export class UtentiComponent implements OnInit {
   }
 
   clearNewUser(){
-    this.nuovoUser = {
+    this.newUsr = {
       Nome: '',
       Cognome: '',
       Telefono: '',
@@ -136,8 +175,9 @@ export class UtentiComponent implements OnInit {
     }
   }
 
-  aggiungi(){
-    this.firestore.collection('user').add(this.nuovoUser);
+  aggiungiUtente(){
+    this.firestore.collection('user').add(this.newUsr);
+    this.closeNew();
   }
 
   SaldoCarta(movimentiCard: movimentiCard[]){
@@ -156,11 +196,6 @@ export class UtentiComponent implements OnInit {
       this.firestore.collection('user').doc(id).update({Carte: arrcard})
      }
   }
-
-  // aggiungiCard(id: string) {
-  //   const nuovaCard = { IdCard: this.cardNumber, Movimenti: [] };
-  //   this.firestore.collection('user').doc(id).update({ Carte: firebase.firestore.FieldValue.arrayUnion(nuovaCard) });
-  // }
 
   apriCard(card: card, isNuovo: boolean) {
     const dialogCard = this.dialog.open(DialogContentCard, {
@@ -183,21 +218,6 @@ export class UtentiComponent implements OnInit {
     this.firestore.collection('user').doc(id).delete().then(() => {})
   }
 
-  caricaUtenitDummy(){
-    this.http.get('assets/utentiDummy.json').subscribe((r:user[]) => {
-      this.clearNewUser()
-      r.forEach(el => {
-        this.nuovoUser.Nome = el.Nome
-        this.nuovoUser.Cognome = el.Cognome
-        this.nuovoUser.Telefono = el.Telefono
-        this.nuovoUser.Carte = [];
-        el.Carte.forEach(c => {
-          this.nuovoUser.Carte.push(c)
-        });
-        this.aggiungi();
-      });
-    })
-  }
 
   setCercaCard(){
     setTimeout(()=>{
@@ -207,10 +227,25 @@ export class UtentiComponent implements OnInit {
   }
 
   addusr(){
-    const dialogCard = this.dialog.open(DialogUtenti, {
-      data: {}
-    });
-    this.keyboardHidden = false;
+   this.newUsr = {
+     Carte: [],
+     Nome: '',
+     Cognome: '',
+     Telefono: ''
+   }
+   this.newUserRow = true;
+   this.keyboardHidden = false;
+  }
+
+  closeNew(){
+    this.newUsr = {
+      Carte: [],
+      Nome: '',
+      Cognome: '',
+      Telefono: ''
+    }
+    this.newUserRow = false;
+    this.keyboardHidden = true;
   }
 
 }
@@ -220,17 +255,6 @@ export class UtentiComponent implements OnInit {
   template: `<app-card-edit *ngIf="data.User" [user]="data.User" [card]="data.Card"></app-card-edit>`,
 })
 export class DialogContentCard {
-  /**
-   *
-   */
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
-}
-
-@Component({
-  selector: 'dialog-card-content',
-  template: `<app-dettaglio-utenti></app-dettaglio-utenti>`,
-})
-export class DialogUtenti{
   /**
    *
    */

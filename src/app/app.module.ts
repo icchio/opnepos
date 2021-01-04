@@ -11,7 +11,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { CassaComponent } from './cassa/cassa.component';
-import { UtentiComponent, DialogContentCard, DialogUtenti } from './utenti/utenti.component';
+import { UtentiComponent, DialogContentCard } from './utenti/utenti.component';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,7 +32,6 @@ import { DettaglioUtentiComponent } from './utenti/dettaglio-utenti/dettaglio-ut
     UtentiComponent,
     CardDetailComponent,
     DialogContentCard,
-    DialogUtenti,
     CardEditComponent,
     CalcolatoreComponent,
     DettaglioUtentiComponent
@@ -50,7 +49,7 @@ import { DettaglioUtentiComponent } from './utenti/dettaglio-utenti/dettaglio-ut
     BrowserAnimationsModule,
     CustomMaterialModule
   ],
-  entryComponents: [DialogContentCard,DialogUtenti],
+  entryComponents: [DialogContentCard],
   providers: [],
   bootstrap: [AppComponent]
 })

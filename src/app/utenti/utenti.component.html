@@ -6,7 +6,6 @@
             <mat-label>Ricerca</mat-label>
             <input matInput placeholder="Ex. Pizza" [(ngModel)]="srcObj.Nome">
         </mat-form-field>
-        
     </div> -->
     <div fxLayout="row">
         <div fxFlex="50" fxLayoutAlign="start center">
@@ -22,12 +21,51 @@
             <fa-icon (click)="addusr()"style="font-size: 32px;margin-right: 20px;" icon="user-plus"></fa-icon> 
         </div>
     </div>
-    <div fxLayout="column" style="padding: 10px; padding-top:20px;"> 
-        <div fxLayout="column" *ngFor="let utente of utenti | async | filter:srcObj.Nome;"
-        class="userBox">
-            <div fxLayout="row"   (click)="getDettaglio(utente)">
+    <div fxLayout="column" style="padding: 10px; padding-top:20px;">
+        <div fxLayout="column" class="userBox" *ngIf="newUserRow">
+            <div fxLayout="row">
+                <div class="userAvatar">{{newUsr.Nome.charAt(0)}}{{newUsr.Cognome.charAt(0)}}</div>
+                <div fxFlex fxLayout="column" style="margin-left: 10px;">
+                    <div  fxLayout="row" fxLayoutGap="10px"> 
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Nome</mat-label>
+                            <input id="Nome" matInput 
+                            (focus)="onInputFocus($event)"
+                            (change)="onInputChange($event)"
+                            [(ngModel)]="newUsr.Nome">
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Cognome</mat-label>
+                            <input id="Cognome" matInput 
+                            (focus)="onInputFocus($event)"
+                            (change)="onInputChange($event)"
+                            [(ngModel)]="newUsr.Cognome">
+                        </mat-form-field>
+                     </div>
+                    <div style="margin-top: -10px;margin-left: -25px;"> 
+                        <mat-icon style="font-size:13px;">phone</mat-icon> 
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Telefono</mat-label>
+                            <input id="Telefono" matInput 
+                            (focus)="onInputFocus($event)"
+                            (change)="onInputChange($event)"
+                            [(ngModel)]="newUsr.Telefono">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxFlex="10" fxLayoutAlign="end start">
+                    <button mat-icon-button (click)="closeNew()">
+                        <fa-icon  style="color: #a83939;font-size: 30px;" icon="times"></fa-icon>
+                    </button>
+                </div>
+            </div>
+            <div fxLayout="row">
+                <button style="width: 100%;" mat-flat-button color="primary" (click)="aggiungiUtente()" >Salva</button>
+            </div>
+        </div>
+        <div fxLayout="column" *ngFor="let utente of utenti | async" class="userBox">
+            <div fxLayout="row" (click)="getDettaglio(utente)">
                 <div class="userAvatar">{{utente.Nome.charAt(0)}}{{utente.Cognome.charAt(0)}}</div>
-                <!-- <mat-icon mat-list-icon>folder</mat-icon> -->
                 <div fxFlex fxLayout="column" style="margin-left: 10px;">
                     <div> {{utente.Nome}} {{utente.Cognome}}</div>
                     <div style="margin-top: 10px;"> 
@@ -63,17 +101,6 @@
             <!-- <mat-card class="carte" *ngIf="l" (click)="nuovaCard(utente)">+</mat-card> -->
         </div>
     </div>
-    <div class="utenti" fxLayout="row">
-        <div>Nome<input [(ngModel)]="nuovoUser.Nome" type="text"></div>
-        <div>Cognome<input [(ngModel)]="nuovoUser.Cognome" type="text"></div>
-        <div>Telefono<input [(ngModel)]="nuovoUser.Telefono"type="text"></div>
-        <!-- <div style="text-align:center">
-            <input (input)="onInputChange($event)" class="input" value={{value}} placeholder="Tap on the virtual keyboard to start" />
-           
-        </div> -->
-        <div><button mat-button (click)="aggiungi()">Aggiungi</button></div>
-    </div>
-    <div><button type="button" (click)="caricaUtenitDummy()">DummyLoad</button></div>
 </div>
 <div class="simple-keyboard" [hidden]="keyboardHidden" style="position: absolute; z-index: 99999; bottom: 0px;
-height: 30%; width: 100%;"></div>
+height: 30%; width: 100%;min-height: 240px;left: 0px;"></div>

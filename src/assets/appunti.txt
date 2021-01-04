@@ -1,0 +1,33 @@
+// this.utenti = this.firestore.collection('user').snapshotChanges().pipe(map(actions => actions.map(a => {
+//   const data = a.payload.doc.data() as any;
+//   const id = a.payload.doc.id;
+//   return { id, ...data };
+// })))
+
+// this.utenti = this.firestore.collection('user',
+// q => q
+// .where('Carte','array-contains',ncard)).snapshotChanges().pipe(map(actions => actions.map(a => {
+//   const data = a.payload.doc.data() as any;
+//   const id = a.payload.doc.id;
+//   return { id, ...data };
+// })))
+
+
+// this.utenti=this.firestore.collection(
+//     'user',
+//     q => q
+//     .where('Telefono','>=',this.srcObj.Telefono)
+//     .where('Telefono', '<', this.srcObj.Telefono + 'z')
+//   ).snapshotChanges().pipe( map(actions => actions.map(a => {
+//   const data = a.payload.doc.data() as any;
+//   const id = a.payload.doc.id;
+//   return { id, ...data };
+// })))
+
+//this.firestore.collection('user').doc(id).valueChanges().subscribe((r:user) =>{console.log(r)})
+//this.firestore.collection('user').doc(id).get().subscribe(r => {console.log(r.data())})
+
+// aggiungiCard(id: string) {
+//   const nuovaCard = { IdCard: this.cardNumber, Movimenti: [] };
+//   this.firestore.collection('user').doc(id).update({ Carte: firebase.firestore.FieldValue.arrayUnion(nuovaCard) });
+// }
