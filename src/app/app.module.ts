@@ -9,6 +9,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from "@angular/fire/auth";
+
 import { environment } from 'src/environments/environment';
 import { CassaComponent } from './pages/cassa/cassa.component';
 import { UtentiComponent, DialogContentCard } from './pages/utenti/utenti.component';
@@ -22,6 +24,9 @@ import { CustomMaterialModule } from './core-module/mat-module.module';
 import { CardDetailComponent } from './pages/utenti/card-detail/card-detail.component';
 import { CardEditComponent } from './pages/utenti/card-edit/card-edit.component';
 import { CalcolatoreComponent } from './components/calcolatore/calcolatore.component';
+import { LoginComponent } from './auth/login/login.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
 
 
 @NgModule({
@@ -33,6 +38,9 @@ import { CalcolatoreComponent } from './components/calcolatore/calcolatore.compo
     DialogContentCard,
     CardEditComponent,
     CalcolatoreComponent,
+    LoginComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     FontAwesomeModule,
@@ -41,6 +49,7 @@ import { CalcolatoreComponent } from './components/calcolatore/calcolatore.compo
     HttpClientModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
     AngularFirestoreModule,
     FlexLayoutModule,
     Ng2SearchPipeModule,
