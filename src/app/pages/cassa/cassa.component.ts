@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { listino, movimentiCard, user } from '../../interfaces/interfaces'
@@ -13,11 +13,11 @@ import * as firebase from 'firebase';
   templateUrl: './cassa.component.html',
   styleUrls: ['./cassa.component.scss']
 })
-export class CassaComponent implements OnInit {
+export class CassaComponent implements OnInit, OnDestroy {
 
   displayText = '0,00';
   calcVal = 0.00;
-  
+
 
   subject: BehaviorSubject<listino[]> = new BehaviorSubject<any>([]);
   importi : Observable<any> =  this.subject.asObservable();
@@ -37,13 +37,14 @@ export class CassaComponent implements OnInit {
   userSelected: firebaseUser;
   userSelectedSaldo = 0;
   usercardNo = '';
+  private cardInputFocusInterval : any;
 
-  constructor(  
+  constructor(
     public firestore : AngularFirestore,
     public http: HttpClient,
     public calcServ : CalcService
-    ) { 
-    this.importi.subscribe(k => 
+    ) {
+    this.importi.subscribe(k =>
      {
        this.calcVal = 0;
        this.totItem = 0;
@@ -53,9 +54,12 @@ export class CassaComponent implements OnInit {
        });
      })
   }
+  ngOnDestroy(): void {
+    clearInterval(this.cardInputFocusInterval);
+  }
 
   ngOnInit() {
-    setInterval(() => {
+    this.cardInputFocusInterval = setInterval(() => {
       document.getElementById('txtcardinput').focus();
     },500)
 
@@ -120,7 +124,7 @@ export class CassaComponent implements OnInit {
 
   remove(item:listino){
     this.importi.pipe(take(1)).subscribe(val => {
-      let thisarray = val.filter( k => { 
+      let thisarray = val.filter( k => {
         return  k != item
       });
       const newArr = [...thisarray];

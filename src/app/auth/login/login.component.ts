@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import { User } from 'firebase';
 import { AuthService } from  '../../auth/auth.service';
 import { auth } from  'firebase/app';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,18 +21,18 @@ export class LoginComponent implements OnInit {
 
   recaptchaVerifier:firebase.auth.RecaptchaVerifier;
 
-  constructor(private  authService:  AuthService) { }
+  constructor(private  authService:  AuthService, private router: Router) { }
     ngOnInit() {
       if(this.authService.isLoggedIn != null){
         console.log(this.authService.isLoggedIn)
         this.user = JSON.parse(localStorage.getItem('user')) as User;
-      } 
+      }
       this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
     }
 
   login(){
-    this.authService.login(this.email, this.password).then(p => {
-      console.log(p)
+    this.authService.login(this.email, this.password, 'cassa').then(p => {
+      console.log(p);
     }).catch(e => console.log(e))
   }
 
@@ -43,5 +44,9 @@ export class LoginComponent implements OnInit {
 
   loginPhone(){
     this.authService.loginWithPhone(this.phone,this.recaptchaVerifier).then()
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
